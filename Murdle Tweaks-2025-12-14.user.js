@@ -58,7 +58,7 @@
                 susBox.appendChild(name);
 
                 const description = document.createElement('p');
-                description.textContent = s.biography;
+                description.innerHTML = s.biography;
                 susBox.appendChild(description);
 
                 const stats = document.createElement('p');
@@ -98,13 +98,13 @@
 
                 if (w.description) {
                     const description = document.createElement('p');
-                    description.textContent = w.description;
+                    description.innerHTML = w.description;
                     wBox.appendChild(description);
                 }
 
                 if (w.clue) {
                     const clue = document.createElement('p');
-                    clue.textContent = `Look for ${w.clue} left behind.`;
+                    clue.innerHTML = `Look for ${w.clue} left behind.`;
                     wBox.appendChild(clue);
                 }
 
@@ -178,7 +178,7 @@
                 mBox.appendChild(name);
 
                 const description = document.createElement('p');
-                description.textContent = m.description;
+                description.innerHTML = m.description;
                 mBox.appendChild(description);
 
                 motivesBox.appendChild(mBox);

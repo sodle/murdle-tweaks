@@ -14,17 +14,32 @@
 
     console.log("[TWEAKS] LOADING MURDLE TWEAKS...");
 
-    GM_addStyle('#filebox>.file {display: none;}');
-    GM_addStyle('#evidence-intro>.card-subtitle {display: none;}');
-    GM_addStyle('#setup {margin-bottom: 0;}');
-    GM_addStyle('#setup>p:last-child {display: none;}');
-
-    GM_addStyle('.filebox-tweaked-hidden {display: none;}');
+    const styles = [
+        '#filebox>.file {display: none;}',
+        '#evidence-intro>.card-subtitle {display: none;}',
+        '#setup {margin-bottom: 0;}',
+        '#setup>p:last-child {display: none;}',
+        '.filebox-tweaked-hidden {display: none;}'
+    ];
+    const stylesJoined = styles.join("\n\n");
+    GM_addStyle(stylesJoined);
 
     const mainBox = document.getElementById('mainbox');
     const intro = document.getElementById('evidence-intro');
     const filebox = document.createElement('div');
+
+    const popper = document.createElement('a');
+    popper.href = '#';
+    popper.textContent = "Open cards in a new window ↗";
+    popper.style.textAlign = 'center';
+    popper.style.display = 'block';
+    popper.onclick = () => {
+        var newWindow = window.open("", "MURDLE CARDS", "resizable=yes");
+        newWindow.document.write(`<!DOCTYPE html><html><head><title>MURDLE FILES</title><link rel="stylesheet" href="https://murdle.com/update-crab/murdle.css" /><style>${stylesJoined}</style></head><body>${filebox.innerHTML}</body></html>`);
+    }
+
     mainBox.insertBefore(filebox, intro);
+    mainBox.insertBefore(popper, intro);
 
     const [suspectsBox, weaponsBox, roomsBox, motivesBox] = ["Suspects", "Weapons", "Locations", "Motives"].map(h => {
         const box = document.createElement('div');
